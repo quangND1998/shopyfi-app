@@ -12,7 +12,18 @@ class ProductController extends Controller
 {
     public function __construct(private readonly ResponseFactory $responseFactory)
     {
-        
+    }
+
+    public function index(Request $request)
+    {
+        $shop = $request->user();
+
+        $request = $shop->api()->rest(
+            'GET',
+            '/admin/api/2024-01/products.json?ids=632910392,921728736',
+
+        );
+        return $request;
     }
     public function store(CreateProductRequest $request)
     {
@@ -27,7 +38,9 @@ class ProductController extends Controller
         ];
 
         $request = $shop->api()->rest(
-            'POST','/admin/api/products.json',[
+            'POST',
+            '/admin/api/products.json',
+            [
                 'product' => $productResource
             ]
         );

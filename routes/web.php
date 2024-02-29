@@ -4,6 +4,7 @@ use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Billabe;
 use App\Http\Middleware\CheckAccessScopes;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,12 +19,10 @@ use App\Http\Middleware\CheckAccessScopes;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::middleware(['verify.shopify', CheckAccessScopes::class, Billabe::class])->group(function() {
+Route::middleware(['verify.shopify'])->group(function () {
     Route::view('/', 'app')->name('home');
     // Route::post('/products', [ProductController::class, 'store']);
-    // Route::get('/premium', [PremiumController::class, 'index']);
-    // Route::post('/premium', [PremiumController::class, 'store']);
-    // Route::delete('/premium', [PremiumController::class, 'destroy']);
+    Route::get('/products', [ProductController::class, 'index']);
 });
 
-Route::get('/index',[TestController::class,'index']);
+Route::get('/index', [TestController::class, 'index']);
